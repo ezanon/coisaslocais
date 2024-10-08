@@ -7,35 +7,40 @@ use PDOException;
 
 class PessoasLocal
 {
-    private $pdo;
+    private static $pdo; // Propriedade estática para armazenar a conexão
 
-    // Construtor agora usa a conexão do DB
-    public function __construct()
+    // Método estático para garantir que a conexão seja estabelecida uma vez
+    private static function getConnection()
     {
-        $this->pdo = DB::getConnection();
+        if (self::$pdo === null) {
+            self::$pdo = DB::getConnection(); // Conexão é estabelecida apenas uma vez
+        }
+        return self::$pdo;
     }
 
-    // Método para inserir um registro com apenas o codpes
-    public function inserirPessoa($codpes)
+    // Método estático para inserir um registro com apenas o codpes
+    public static function inserirPessoa($codpes)
     {
+        $pdo = self::getConnection();
         $sql = "INSERT INTO pessoas (codpes) VALUES (:codpes)";
         try {
-            $stmt = $this->pdo->prepare($sql);
+            $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':codpes', $codpes, PDO::PARAM_INT);
             $stmt->execute();
-            return $this->pdo->lastInsertId(); // Retorna o ID da última inserção
+            return $pdo->lastInsertId(); // Retorna o ID da última inserção
         } catch (PDOException $e) {
             echo "Erro ao inserir pessoa: " . $e->getMessage();
             return false;
         }
     }
 
-    // Método para buscar um registro pelo ID
-    public function buscarPessoa($id)
+    // Método estático para buscar um registro pelo ID
+    public static function buscarPessoa($id)
     {
+        $pdo = self::getConnection();
         $sql = "SELECT * FROM pessoas WHERE id = :id";
         try {
-            $stmt = $this->pdo->prepare($sql);
+            $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -45,12 +50,13 @@ class PessoasLocal
         }
     }
 
-    // Método para atualizar apenas o campo ODS
-    public function atualizarODS($id, $ods)
+    // Método estático para atualizar apenas o campo ODS
+    public static function atualizarODS($id, $ods)
     {
+        $pdo = self::getConnection();
         $sql = "UPDATE pessoas SET ods = :ods WHERE id = :id";
         try {
-            $stmt = $this->pdo->prepare($sql);
+            $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->bindParam(':ods', $ods, PDO::PARAM_STR);
             return $stmt->execute();
@@ -60,16 +66,19 @@ class PessoasLocal
         }
     }
 
-    // Método para obter o campo ODS de uma pessoa
-    public function obterODS($codpes)
+    // Método estático para obter o campo ODS de uma pessoa
+    public static function obterODS($codpes)
     {
-        $conn = DB::getConnection();
-        $stmt = $conn->prepare("SELECT ods FROM pessoas WHERE codpes = :codpes");
-        $stmt->bindParam(':codpes', $codpes, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchColumn();
+        $pdo = self::getConnection();
+        $sql = "SELECT ods FROM pessoas WHERE codpes = :codpes";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':codpes', $codpes, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            echo "Erro ao obter ODS: " . $e->getMessage();
+            return false;
+        }
     }
-
-
 }
