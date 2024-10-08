@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "uspdev/replicado": "^1.24",
+        "uspdev/replicado": "dev-master",
         "vlucas/phpdotenv": "^5.6"
     },
     "autoload": {
