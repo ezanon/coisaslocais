@@ -1,6 +1,8 @@
 {
     "name": "ezanon/pessoaslocal",
+    "description": "Biblioteca para gerenciar dados locais da faculdade",
     "type": "library",
+    "license": "MIT",
     "require": {
         "uspdev/replicado": "^1.24",
         "vlucas/phpdotenv": "^5.6"
@@ -12,7 +14,8 @@
     },
     "authors": [
         {
-            "name": "Erickson Zanon"
+            "name": "Erickson Zanon",
+            "email": "ezanon@gmail.com"
         }
     ]
 }
