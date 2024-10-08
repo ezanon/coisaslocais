@@ -1,0 +1,10 @@
+/nbproject*
+/nbproject/private/
+.env
+config.php
+/vendor/
+composer.lock
+.ideia
+*.ideia
+config.php
+test*
