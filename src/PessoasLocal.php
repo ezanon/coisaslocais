@@ -5,7 +5,7 @@ namespace Ezanon\CoisasLocais;
 use PDO;
 use PDOException;
 
-class PessoasLocal
+class CoisasLocal
 {
     private static $pdo; // Propriedade estática para armazenar a conexão
 
