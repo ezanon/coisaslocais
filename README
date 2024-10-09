@@ -1,0 +1,61 @@
+# CoisasLocais
+
+**CoisasLocais** é uma biblioteca PHP desenvolvida para gerenciar dados locais, como o código pessoal (`codpes`) e informações adicionais, como os Objetivos de Desenvolvimento Sustentável (ODS), dentro de um contexto acadêmico.
+
+## Instalação
+
+Você pode instalar a biblioteca **coisaslocais** via [Composer](https://getcomposer.org/). Para isso, adicione a seguinte linha ao seu arquivo `composer.json`:
+
+```json
+"require": {
+    "ezanon/coisaslocais": "dev-main"
+}
+```
+
+Em seguida, rode o comando:
+
+```bash
+composer update
+```
+
+## Uso
+
+### Inserir uma pessoa
+
+Para inserir uma pessoa utilizando o `codpes`, você pode usar o método estático `inserirPessoa`:
+
+```php
+use Ezanon\Coisaslocais\CoisasLocais;
+
+CoisasLocais::inserirPessoa(1234567);
+```
+
+### Atualizar ODS
+
+Para atualizar o campo `ODS` de uma pessoa, utilize o método estático `atualizarODS`:
+
+```php
+use Ezanon\Coisaslocais\CoisasLocais;
+
+CoisasLocais::atualizarODS(1234567, '2,13,14');
+```
+
+### Obter ODS
+
+Para obter os ODS de uma pessoa, utilize o método estático `obterODS`:
+
+```php
+use Ezanon\Coisaslocais\CoisasLocais;
+
+$ods = CoisasLocais::obterODS(1234567);
+echo $ods; // Exibe os ODS vinculados
+```
+
+## Contribuição
+
+Sinta-se à vontade para contribuir com o projeto enviando pull requests ou relatando problemas através do [repositório GitHub](https://github.com/igcusp/coisaslocais).
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
