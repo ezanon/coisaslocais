@@ -1,6 +1,6 @@
 <?php
 
-namespace Ezanon\Pessoaslocal;
+namespace Ezanon\CoisasLocais;
 
 use PDO;
 use PDOException;

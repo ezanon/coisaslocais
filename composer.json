@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ezanon\\Pessoaslocal\\": "src/"
+            "Ezanon\\CoisasLocais\\": "src/"
         }
     },
     "authors": [
