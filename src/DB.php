@@ -13,21 +13,13 @@ class DB
     public static function getConnection()
     {
         if (!self::$instance) {
-            // Verifica se o arquivo .env existe
-            if (!file_exists(__DIR__ . '/../.env')) {
-                throw new Exception('Arquivo .env não encontrado.');
-            }
 
-            // Carrega as configurações do arquivo config.php
-            $config = require __DIR__ . '/../config.php';
-
-            // Recupera as variáveis de configuração
-            $connection = $config['db']['connection'];
-            $host = $config['db']['host'];
-            $db = $config['db']['database'];
-            $user = $config['db']['username'];
-            $password = $config['db']['password'];
-            $port = $config['db']['port'];
+            $connection = getenv("DB_CONNECTION");
+            $host = getenv("DB_HOST");
+            $db = getenv("DB_DATABASE");
+            $user = getenv("DB_USERNAME");
+            $password = getenv("DB_PASSWORD");
+            $port = getenv("DB_PORT");
 
             // Monta o DSN com base no tipo de conexão
             if ($connection === 'mysql') {
