@@ -118,7 +118,7 @@ class CoisasLocais
     public static function obterInfoDuplaVinculacao($codpes)
     {
         $pdo = self::getConnection();
-        $sql = "SELECT depto,duplavinculacao_unidade FROM pessoas WHERE codpes = :codpes";
+        $sql = "SELECT depto,duplavinculacao_unidade,ramal_igc FROM pessoas WHERE codpes = :codpes";
         try {
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':codpes', $codpes, PDO::PARAM_INT);
