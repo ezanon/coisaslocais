@@ -81,4 +81,53 @@ class CoisasLocais
             return false;
         }
     }
+    
+    // Método estático para obter lista de docentes com dupla vinculação
+    public static function obterDuplaVinculacao()
+    {
+        $pdo = self::getConnection();
+        $sql = "SELECT codpes,depto,duplavinculacao_unidade FROM pessoas WHERE duplavinculacao = 1";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erro ao obter ODS: " . $e->getMessage();
+            return false;
+        }
+    }
+    
+    // Método estático para obter se um docente possui dupla vinculação
+    public static function ehDuplaVinculacao($codpes)
+    {
+        $pdo = self::getConnection();
+        $sql = "SELECT count(*) FROM pessoas WHERE codpes = :codpes and duplavinculacao = 1";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':codpes', $codpes, PDO::PARAM_INT);
+            $stmt->execute();
+            $n = $stmt->fetchColumn();
+            return $n==1 ? true : false;
+        } catch (PDOException $e) {
+            echo "Erro ao obter ODS: " . $e->getMessage();
+            return false;
+        }
+    }
+    
+    // Método estático para obter informações da dupla vinculação do docentes
+    public static function obterInfoDuplaVinculacao($codpes)
+    {
+        $pdo = self::getConnection();
+        $sql = "SELECT depto,duplavinculacao_unidade FROM pessoas WHERE codpes = :codpes";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':codpes', $codpes, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erro ao obter ODS: " . $e->getMessage();
+            return false;
+        }
+    }
+    
 }
